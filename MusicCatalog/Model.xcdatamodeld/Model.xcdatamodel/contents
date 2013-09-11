@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Album" syncable="YES">
+        <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="author" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Musician" inverseName="albums" inverseEntity="Musician" syncable="YES"/>
+        <relationship name="hasSong" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Song" inverseName="sourceAlbum" inverseEntity="Song" syncable="YES"/>
+    </entity>
+    <entity name="Musician" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="albums" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Album" inverseName="author" inverseEntity="Album" syncable="YES"/>
+    </entity>
+    <entity name="Song" syncable="YES">
+        <attribute name="lyrics" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="sourceAlbum" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="hasSong" inverseEntity="Album" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Musician" positionX="-371" positionY="125" width="128" height="73"/>
+        <element name="Album" positionX="-126" positionY="188" width="128" height="118"/>
+        <element name="Song" positionX="153" positionY="324" width="128" height="88"/>
+    </elements>
+</model>
