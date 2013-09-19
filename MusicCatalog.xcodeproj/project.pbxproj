@@ -17,8 +17,14 @@
 		B45A355E17E09E3B00ABA337 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A355D17E09E3B00ABA337 /* Default@2x.png */; };
 		B45A356017E09E3B00ABA337 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A355F17E09E3B00ABA337 /* Default-568h@2x.png */; };
 		B45A356317E09E3B00ABA337 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B45A356117E09E3B00ABA337 /* MainStoryboard.storyboard */; };
-		B45A356617E09E3B00ABA337 /* MCAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B45A356517E09E3B00ABA337 /* MCAlbumViewController.m */; };
 		B45A356E17E0A2F400ABA337 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B45A356C17E0A2F400ABA337 /* Model.xcdatamodeld */; };
+		B483807317EB265100307CE8 /* MCMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807217EB265100307CE8 /* MCMasterController.m */; };
+		B483807617EB28CA00307CE8 /* MCDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807517EB28CA00307CE8 /* MCDetailController.m */; };
+		B483807917EB2FEC00307CE8 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807817EB2FEC00307CE8 /* Song.m */; };
+		B483807C17EB2FEC00307CE8 /* Musician.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807B17EB2FEC00307CE8 /* Musician.m */; };
+		B483807F17EB2FEC00307CE8 /* Album.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807E17EB2FEC00307CE8 /* Album.m */; };
+		B48380B917EB3F5C00307CE8 /* MCNewAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */; };
+		B48380BB17EB415400307CE8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B48380BA17EB415400307CE8 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,9 +42,20 @@
 		B45A355D17E09E3B00ABA337 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B45A355F17E09E3B00ABA337 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B45A356217E09E3B00ABA337 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		B45A356417E09E3B00ABA337 /* MCAlbumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAlbumViewController.h; sourceTree = "<group>"; };
-		B45A356517E09E3B00ABA337 /* MCAlbumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCAlbumViewController.m; sourceTree = "<group>"; };
 		B45A356D17E0A2F400ABA337 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		B483807117EB265100307CE8 /* MCMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMasterController.h; sourceTree = "<group>"; };
+		B483807217EB265100307CE8 /* MCMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMasterController.m; sourceTree = "<group>"; };
+		B483807417EB28CA00307CE8 /* MCDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDetailController.h; sourceTree = "<group>"; };
+		B483807517EB28CA00307CE8 /* MCDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDetailController.m; sourceTree = "<group>"; };
+		B483807717EB2FEC00307CE8 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
+		B483807817EB2FEC00307CE8 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
+		B483807A17EB2FEC00307CE8 /* Musician.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Musician.h; sourceTree = "<group>"; };
+		B483807B17EB2FEC00307CE8 /* Musician.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Musician.m; sourceTree = "<group>"; };
+		B483807D17EB2FEC00307CE8 /* Album.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Album.h; sourceTree = "<group>"; };
+		B483807E17EB2FEC00307CE8 /* Album.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Album.m; sourceTree = "<group>"; };
+		B48380B717EB3F5B00307CE8 /* MCNewAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCNewAlbumViewController.h; sourceTree = "<group>"; };
+		B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCNewAlbumViewController.m; sourceTree = "<group>"; };
+		B48380BA17EB415400307CE8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B48380BB17EB415400307CE8 /* CoreData.framework in Frameworks */,
 				B45A354A17E09E3B00ABA337 /* UIKit.framework in Frameworks */,
 				B45A354C17E09E3B00ABA337 /* Foundation.framework in Frameworks */,
 				B45A354E17E09E3B00ABA337 /* CoreGraphics.framework in Frameworks */,
@@ -75,6 +93,7 @@
 		B45A354817E09E3B00ABA337 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B48380BA17EB415400307CE8 /* CoreData.framework */,
 				B45A354917E09E3B00ABA337 /* UIKit.framework */,
 				B45A354B17E09E3B00ABA337 /* Foundation.framework */,
 				B45A354D17E09E3B00ABA337 /* CoreGraphics.framework */,
@@ -86,11 +105,21 @@
 			isa = PBXGroup;
 			children = (
 				B45A356C17E0A2F400ABA337 /* Model.xcdatamodeld */,
+				B45A356117E09E3B00ABA337 /* MainStoryboard.storyboard */,
+				B483807D17EB2FEC00307CE8 /* Album.h */,
+				B483807E17EB2FEC00307CE8 /* Album.m */,
+				B483807A17EB2FEC00307CE8 /* Musician.h */,
+				B483807B17EB2FEC00307CE8 /* Musician.m */,
+				B483807717EB2FEC00307CE8 /* Song.h */,
+				B483807817EB2FEC00307CE8 /* Song.m */,
+				B48380B717EB3F5B00307CE8 /* MCNewAlbumViewController.h */,
+				B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */,
 				B45A355817E09E3B00ABA337 /* MCAppDelegate.h */,
 				B45A355917E09E3B00ABA337 /* MCAppDelegate.m */,
-				B45A356117E09E3B00ABA337 /* MainStoryboard.storyboard */,
-				B45A356417E09E3B00ABA337 /* MCAlbumViewController.h */,
-				B45A356517E09E3B00ABA337 /* MCAlbumViewController.m */,
+				B483807417EB28CA00307CE8 /* MCDetailController.h */,
+				B483807517EB28CA00307CE8 /* MCDetailController.m */,
+				B483807117EB265100307CE8 /* MCMasterController.h */,
+				B483807217EB265100307CE8 /* MCMasterController.m */,
 				B45A355017E09E3B00ABA337 /* Supporting Files */,
 			);
 			path = MusicCatalog;
@@ -179,8 +208,13 @@
 			files = (
 				B45A355617E09E3B00ABA337 /* main.m in Sources */,
 				B45A355A17E09E3B00ABA337 /* MCAppDelegate.m in Sources */,
-				B45A356617E09E3B00ABA337 /* MCAlbumViewController.m in Sources */,
 				B45A356E17E0A2F400ABA337 /* Model.xcdatamodeld in Sources */,
+				B483807317EB265100307CE8 /* MCMasterController.m in Sources */,
+				B483807617EB28CA00307CE8 /* MCDetailController.m in Sources */,
+				B483807917EB2FEC00307CE8 /* Song.m in Sources */,
+				B483807C17EB2FEC00307CE8 /* Musician.m in Sources */,
+				B483807F17EB2FEC00307CE8 /* Album.m in Sources */,
+				B48380B917EB3F5C00307CE8 /* MCNewAlbumViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +339,7 @@
 				B45A356B17E09E3B00ABA337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
