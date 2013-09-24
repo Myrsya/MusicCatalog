@@ -7,9 +7,6 @@
 //
 
 #import "MCAppDelegate.h"
-#import "Album.h"
-#import "Musician.h"
-#import "Song.h"
 
 @implementation MCAppDelegate
 
@@ -20,7 +17,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
     UISplitViewController *splitViewController = (UISplitViewController *) self.window.rootViewController;
-    splitViewController.delegate = [splitViewController.viewControllers lastObject];
+    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+    splitViewController.delegate = (id)navigationController.topViewController;
     
     return YES;
 }
@@ -94,7 +92,7 @@
         return NO;
     }
     
-    Musician *newMusician = (Musician *)[NSEntityDescription insertNewObjectForEntityForName:@"Musician" inManagedObjectContext:_managedObjectContext];
+    Musician *newMusician = (Musician *)[NSEntityDescription insertNewObjectForEntityForName:@"Musician" inManagedObjectContext:[self managedObjectContext]];
     if (newMusician == nil)
     {
         NSLog(@"Failed to create Musician!");
@@ -106,10 +104,54 @@
     return [self saveContext];
 }
 
-
--(BOOL)addAlbum:(Album *)album ForMusician:(Musician *)musician
+-(BOOL)createAlbumWithName:(NSString *)paramName year:(NSNumber *)paramYear
 {
+    if ([paramName length] == 0)
+    {
+        NSLog(@"You did not type Album name!");
+        return NO;
+    }
+    
+    Album *newAlbum = (Album*)[NSEntityDescription insertNewObjectForEntityForName:@"Album" inManagedObjectContext:[self managedObjectContext]];
+    if (newAlbum == nil)
+    {
+        NSLog(@"Failed to create Album!");
+        return NO;
+    }
+    
+    newAlbum.name = paramName;
+    newAlbum.year = paramYear;
+    newAlbum.coverURL = @"nana";
+    
+    return [self saveContext];
+}
+
+-(BOOL)addAlbumWithName:(NSString *)albumName ForMusicianWithName:(NSString *)musicianName
+{    
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Musician"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", musicianName];
+    
+    NSError *error;
+    Musician *musician = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
+    if (error != nil)
+    {
+        NSLog(@"Failed to get Musician!");
+        error = nil;
+        return NO;
+    }
     NSMutableSet *albums = [musician mutableSetValueForKey:@"albums"];
+    
+    request = [[NSFetchRequest alloc] initWithEntityName:@"Album"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", albumName];
+    
+    Album *album = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
+    if (error != nil)
+    {
+        NSLog(@"Failed to get Album!");
+        error = nil;
+        return NO;
+    }
+    
     [albums addObject:album];
     
     return [self saveContext];
@@ -123,15 +165,27 @@
     return [self saveContext];
 }
 
+-(NSArray *)fetchAllMusicians
+{
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Musician"];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    NSError *error;
+    NSArray *allMusicians = [[self managedObjectContext] executeFetchRequest:request error:&error];
+    if (error)
+    {
+        NSLog(@" %@ ", [error localizedDescription]);
+        return nil;
+    }
+    return allMusicians;
+}
+
 #pragma mark - Application's Documents directory
 
 // Returns the URL to the application's Documents directory.
 - (NSURL *)applicationDocumentsDirectory
-{
-   //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //NSString *documentDirectory = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    //NSURL *storeURL = [NSURL fileURLWithPath: [documentDirectory stringByAppendingPathComponent:databaseFileName]];
-    
+{    
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 

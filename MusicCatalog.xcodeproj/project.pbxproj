@@ -25,6 +25,7 @@
 		B483807F17EB2FEC00307CE8 /* Album.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807E17EB2FEC00307CE8 /* Album.m */; };
 		B48380B917EB3F5C00307CE8 /* MCNewAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */; };
 		B48380BB17EB415400307CE8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B48380BA17EB415400307CE8 /* CoreData.framework */; };
+		B4977B9117F18FE200E35E29 /* AuthorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4977B9017F18FE200E35E29 /* AuthorPickerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,8 @@
 		B48380B717EB3F5B00307CE8 /* MCNewAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCNewAlbumViewController.h; sourceTree = "<group>"; };
 		B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCNewAlbumViewController.m; sourceTree = "<group>"; };
 		B48380BA17EB415400307CE8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B4977B8F17F18FE100E35E29 /* AuthorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthorPickerViewController.h; path = ../../../AuthorPickerViewController.h; sourceTree = "<group>"; };
+		B4977B9017F18FE200E35E29 /* AuthorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthorPickerViewController.m; path = ../../../AuthorPickerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +115,12 @@
 				B483807B17EB2FEC00307CE8 /* Musician.m */,
 				B483807717EB2FEC00307CE8 /* Song.h */,
 				B483807817EB2FEC00307CE8 /* Song.m */,
-				B48380B717EB3F5B00307CE8 /* MCNewAlbumViewController.h */,
-				B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */,
 				B45A355817E09E3B00ABA337 /* MCAppDelegate.h */,
 				B45A355917E09E3B00ABA337 /* MCAppDelegate.m */,
+				B48380B717EB3F5B00307CE8 /* MCNewAlbumViewController.h */,
+				B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */,
+				B4977B8F17F18FE100E35E29 /* AuthorPickerViewController.h */,
+				B4977B9017F18FE200E35E29 /* AuthorPickerViewController.m */,
 				B483807417EB28CA00307CE8 /* MCDetailController.h */,
 				B483807517EB28CA00307CE8 /* MCDetailController.m */,
 				B483807117EB265100307CE8 /* MCMasterController.h */,
@@ -215,6 +220,7 @@
 				B483807C17EB2FEC00307CE8 /* Musician.m in Sources */,
 				B483807F17EB2FEC00307CE8 /* Album.m in Sources */,
 				B48380B917EB3F5C00307CE8 /* MCNewAlbumViewController.m in Sources */,
+				B4977B9117F18FE200E35E29 /* AuthorPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +310,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicCatalog/MusicCatalog-Prefix.pch";
 				INFOPLIST_FILE = "MusicCatalog/MusicCatalog-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -315,7 +323,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicCatalog/MusicCatalog-Prefix.pch";
 				INFOPLIST_FILE = "MusicCatalog/MusicCatalog-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

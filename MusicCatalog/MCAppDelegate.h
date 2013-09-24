@@ -10,6 +10,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+#import "Album.h"
+#import "Musician.h"
+#import "Song.h"
+
 @interface MCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -17,5 +21,12 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+-(BOOL)saveContext;
+-(BOOL)createMusicianWithName:(NSString *)paramName;
+-(BOOL)createAlbumWithName:(NSString *)paramName year:(NSNumber *)paramYear;
+-(BOOL)addAlbumWithName:(NSString *)albumName ForMusicianWithName:(NSString *)musicianName;
+-(BOOL)removeAlbum:(Album *)album ForMusician:(Musician *)musician;
+-(NSArray *)fetchAllMusicians;
 
 @end

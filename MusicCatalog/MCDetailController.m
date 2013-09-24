@@ -9,7 +9,9 @@
 #import "MCDetailController.h"
 
 @interface MCDetailController ()
-
+{
+    Album *selectedAlbum;
+}
 @end
 
 @implementation MCDetailController
@@ -20,31 +22,70 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.navigationItem.title = selectedAlbum.name;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+#pragma mark - delegate
+-(void) didSelectAlbum:(Album *) album
 {
-    barButtonItem.title = @"Все";
-    NSMutableArray *items = [[self.toolbar items] mutableCopy];
-    [items insertObject:barButtonItem atIndex:0];
-    [self.toolbar setItems:items animated:YES];
-    masterPopoverController = pc;
+    selectedAlbum = album;
 }
 
-- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)button
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSMutableArray *items = [[self.toolbar items] mutableCopy];
-    [items removeObject:button];
-    [self.toolbar setItems:items animated:YES];
-    masterPopoverController = nil;
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    cell.textLabel.text = @"lol";
+    //tempMusician = [self.authorNames objectAtIndex:indexPath.row];
+    //cell.textLabel.text = tempMusician.name;
+    
+    return cell;
 }
 
 
+//- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+//{
+//    barButtonItem.title = @"Все";
+//    NSMutableArray *items = [[self.toolbar items] mutableCopy];
+//    [items insertObject:barButtonItem atIndex:0];
+//    [self.toolbar setItems:items animated:YES];
+//    masterPopoverController = pc;
+//}
+//
+//- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)button
+//{
+//    NSMutableArray *items = [[self.toolbar items] mutableCopy];
+//    [items removeObject:button];
+//    [self.toolbar setItems:items animated:YES];
+//    masterPopoverController = nil;
+//}
+
+
+- (void)viewDidUnload {
+    [self setImageCover:nil];
+    [self setTableSongs:nil];
+    [super viewDidUnload];
+}
 @end

@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Album.h"
+#import "MCAppDelegate.h"
+#import "MCNewAlbumViewController.h"
 
-@protocol AlbumDelegate <NSObject>
+@protocol ShowAlbumDelegate <NSObject>
 
 -(void) didSelectAlbum:(Album *) album;
 
 @end
 
-@interface MCMasterController : UITableViewController
+@interface MCMasterController : UITableViewController <NewAlbum>
 
-@property (nonatomic,retain) id<AlbumDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UITableView *masterTable;
+@property (nonatomic,retain) id<ShowAlbumDelegate> delegate;
 
 @end

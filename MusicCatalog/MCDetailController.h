@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCMasterController.h"
 
-@interface MCDetailController : UIViewController<UISplitViewControllerDelegate>
+@interface MCDetailController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISplitViewControllerDelegate, ShowAlbumDelegate>
 
-@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+//@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) IBOutlet UIImageView *imageCover;
+@property (strong, nonatomic) IBOutlet UITableView *tableSongs;
 
 @end
