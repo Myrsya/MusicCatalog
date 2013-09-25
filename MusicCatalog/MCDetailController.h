@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "MCMasterController.h"
+#import "MCNewSongViewController.h"
 
-@interface MCDetailController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISplitViewControllerDelegate, ShowAlbumDelegate>
+@interface MCDetailController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISplitViewControllerDelegate, ShowAlbumDelegate, NewSong>
 
-//@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (strong, nonatomic) IBOutlet UIImageView *imageCover;
 @property (strong, nonatomic) IBOutlet UITableView *tableSongs;
+
+@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *addSongButton;
 
 @end

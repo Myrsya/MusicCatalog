@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B4425CBA17F3077A006B602C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4425CB917F3077A006B602C /* QuartzCore.framework */; };
+		B4425CBD17F307AF006B602C /* MCNewSongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4425CBC17F307AF006B602C /* MCNewSongViewController.m */; };
+		B4425CC017F31630006B602C /* MCViewSongController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4425CBF17F3162F006B602C /* MCViewSongController.m */; };
 		B45A354A17E09E3B00ABA337 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45A354917E09E3B00ABA337 /* UIKit.framework */; };
 		B45A354C17E09E3B00ABA337 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45A354B17E09E3B00ABA337 /* Foundation.framework */; };
 		B45A354E17E09E3B00ABA337 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45A354D17E09E3B00ABA337 /* CoreGraphics.framework */; };
@@ -29,6 +32,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B4425CB917F3077A006B602C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B4425CBB17F307AE006B602C /* MCNewSongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCNewSongViewController.h; path = ../../../MCNewSongViewController.h; sourceTree = "<group>"; };
+		B4425CBC17F307AF006B602C /* MCNewSongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCNewSongViewController.m; path = ../../../MCNewSongViewController.m; sourceTree = "<group>"; };
+		B4425CBE17F3162F006B602C /* MCViewSongController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCViewSongController.h; sourceTree = "<group>"; };
+		B4425CBF17F3162F006B602C /* MCViewSongController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCViewSongController.m; sourceTree = "<group>"; };
 		B45A354617E09E3B00ABA337 /* MusicCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B45A354917E09E3B00ABA337 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B45A354B17E09E3B00ABA337 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -66,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4425CBA17F3077A006B602C /* QuartzCore.framework in Frameworks */,
 				B48380BB17EB415400307CE8 /* CoreData.framework in Frameworks */,
 				B45A354A17E09E3B00ABA337 /* UIKit.framework in Frameworks */,
 				B45A354C17E09E3B00ABA337 /* Foundation.framework in Frameworks */,
@@ -96,6 +105,7 @@
 		B45A354817E09E3B00ABA337 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B4425CB917F3077A006B602C /* QuartzCore.framework */,
 				B48380BA17EB415400307CE8 /* CoreData.framework */,
 				B45A354917E09E3B00ABA337 /* UIKit.framework */,
 				B45A354B17E09E3B00ABA337 /* Foundation.framework */,
@@ -107,20 +117,19 @@
 		B45A354F17E09E3B00ABA337 /* MusicCatalog */ = {
 			isa = PBXGroup;
 			children = (
+				B4F0D13B17F3196B00B3E197 /* CoreData */,
 				B45A356C17E0A2F400ABA337 /* Model.xcdatamodeld */,
 				B45A356117E09E3B00ABA337 /* MainStoryboard.storyboard */,
-				B483807D17EB2FEC00307CE8 /* Album.h */,
-				B483807E17EB2FEC00307CE8 /* Album.m */,
-				B483807A17EB2FEC00307CE8 /* Musician.h */,
-				B483807B17EB2FEC00307CE8 /* Musician.m */,
-				B483807717EB2FEC00307CE8 /* Song.h */,
-				B483807817EB2FEC00307CE8 /* Song.m */,
 				B45A355817E09E3B00ABA337 /* MCAppDelegate.h */,
 				B45A355917E09E3B00ABA337 /* MCAppDelegate.m */,
 				B48380B717EB3F5B00307CE8 /* MCNewAlbumViewController.h */,
 				B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */,
+				B4425CBB17F307AE006B602C /* MCNewSongViewController.h */,
+				B4425CBC17F307AF006B602C /* MCNewSongViewController.m */,
 				B4977B8F17F18FE100E35E29 /* AuthorPickerViewController.h */,
 				B4977B9017F18FE200E35E29 /* AuthorPickerViewController.m */,
+				B4425CBE17F3162F006B602C /* MCViewSongController.h */,
+				B4425CBF17F3162F006B602C /* MCViewSongController.m */,
 				B483807417EB28CA00307CE8 /* MCDetailController.h */,
 				B483807517EB28CA00307CE8 /* MCDetailController.m */,
 				B483807117EB265100307CE8 /* MCMasterController.h */,
@@ -142,6 +151,19 @@
 				B45A355F17E09E3B00ABA337 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B4F0D13B17F3196B00B3E197 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				B483807D17EB2FEC00307CE8 /* Album.h */,
+				B483807E17EB2FEC00307CE8 /* Album.m */,
+				B483807A17EB2FEC00307CE8 /* Musician.h */,
+				B483807B17EB2FEC00307CE8 /* Musician.m */,
+				B483807717EB2FEC00307CE8 /* Song.h */,
+				B483807817EB2FEC00307CE8 /* Song.m */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +243,8 @@
 				B483807F17EB2FEC00307CE8 /* Album.m in Sources */,
 				B48380B917EB3F5C00307CE8 /* MCNewAlbumViewController.m in Sources */,
 				B4977B9117F18FE200E35E29 /* AuthorPickerViewController.m in Sources */,
+				B4425CBD17F307AF006B602C /* MCNewSongViewController.m in Sources */,
+				B4425CC017F31630006B602C /* MCViewSongController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

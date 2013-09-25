@@ -7,6 +7,8 @@
 //
 
 #import "MCAppDelegate.h"
+#import "MCDetailController.h"
+#import "MCMasterController.h"
 
 @implementation MCAppDelegate
 
@@ -17,8 +19,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
     UISplitViewController *splitViewController = (UISplitViewController *) self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    splitViewController.delegate = (id)navigationController.topViewController;
+    UINavigationController *navigationControllerDetail = [splitViewController.viewControllers lastObject];
+    splitViewController.delegate = (MCDetailController *)navigationControllerDetail.topViewController;
+    
+    UINavigationController *navigationControllerMaster = [splitViewController.viewControllers objectAtIndex:0];
+    ((MCMasterController *)navigationControllerMaster.topViewController).delegateShowAlbum = (MCDetailController *)navigationControllerDetail.topViewController;
     
     return YES;
 }
@@ -126,6 +131,27 @@
     return [self saveContext];
 }
 
+-(BOOL)createSongWithName:(NSString *)paramName lyrics:(NSString *)paramText
+{
+    if ([paramName length] == 0)
+    {
+        NSLog(@"You did not type Song name!");
+        return NO;
+    }
+    
+    Song *newSong = (Song*)[NSEntityDescription insertNewObjectForEntityForName:@"Song" inManagedObjectContext:[self managedObjectContext]];
+    if (newSong == nil)
+    {
+        NSLog(@"Failed to create Song!");
+        return NO;
+    }
+    
+    newSong.name = paramName;
+    newSong.lyrics = paramText;
+    
+    return [self saveContext];
+}
+
 -(BOOL)addAlbumWithName:(NSString *)albumName ForMusicianWithName:(NSString *)musicianName
 {    
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Musician"];
@@ -165,6 +191,37 @@
     return [self saveContext];
 }
 
+-(BOOL)addSongWithName:(NSString *)songName ForAlbumWithName:(NSString *)albumName
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Album"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", albumName];
+    
+    NSError *error;
+    Album *album = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
+    if (error != nil)
+    {
+        NSLog(@"Failed to get Album!");
+        error = nil;
+        return NO;
+    }
+    NSMutableSet *songs = [album mutableSetValueForKey:@"hasSong"];
+    
+    request = [[NSFetchRequest alloc] initWithEntityName:@"Song"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", songName];
+    
+    Song *song = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
+    if (error != nil)
+    {
+        NSLog(@"Failed to get Song!");
+        error = nil;
+        return NO;
+    }
+    
+    [songs addObject:song];
+    
+    return [self saveContext];
+}
+
 -(NSArray *)fetchAllMusicians
 {
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -179,6 +236,21 @@
         return nil;
     }
     return allMusicians;
+}
+
+-(NSArray *)fetchAllSongsForAlbum:(NSString *)albumName
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Album"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", albumName];
+    
+    NSError *error;
+    Album *album = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
+    if (error)
+    {
+        NSLog(@" %@ ", [error localizedDescription]);
+        return nil;
+    }
+    return [album.hasSong allObjects];
 }
 
 #pragma mark - Application's Documents directory

@@ -95,6 +95,7 @@
             {
                 self.authorPicker = [[AuthorPickerViewController alloc] initWithStyle:UITableViewStylePlain];
                 self.authorPicker.delegateAuthorPicker = self;
+                self.authorPicker.contentSizeForViewInPopover=CGSizeMake(200, 300);
             }
             if (self.authorPickerPopover == nil)
             {
@@ -127,7 +128,7 @@
 #pragma mark - Buttons handle
 -(IBAction)cancelPressed:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)savePressed:(id)sender
@@ -145,7 +146,7 @@
         [self.delegateNewAlbum didCreatedNewAlbum:YES];
     }
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

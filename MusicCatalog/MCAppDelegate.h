@@ -25,8 +25,13 @@
 -(BOOL)saveContext;
 -(BOOL)createMusicianWithName:(NSString *)paramName;
 -(BOOL)createAlbumWithName:(NSString *)paramName year:(NSNumber *)paramYear;
+-(BOOL)createSongWithName:(NSString *)paramName lyrics:(NSString *)paramText;
+
 -(BOOL)addAlbumWithName:(NSString *)albumName ForMusicianWithName:(NSString *)musicianName;
 -(BOOL)removeAlbum:(Album *)album ForMusician:(Musician *)musician;
+-(BOOL)addSongWithName:(NSString *)songName ForAlbumWithName:(NSString *)albumName;
+
 -(NSArray *)fetchAllMusicians;
+-(NSArray *)fetchAllSongsForAlbum:(NSString *)albumName;
 
 @end

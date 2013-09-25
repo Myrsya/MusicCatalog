@@ -38,8 +38,17 @@
     }
 }
 
-#pragma mark - protocol from modal view
+#pragma mark - delegates
 -(void) didCreatedNewAlbum:(BOOL)result
+{
+    if (result)
+    {
+        allMusicians = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllMusicians];
+        [self.masterTable reloadData];
+    }
+}
+
+-(void) didCreatedNewSong:(BOOL)result
 {
     if (result)
     {
@@ -71,6 +80,8 @@
     
     allAlbums = [((Musician *)[allMusicians objectAtIndex:indexPath.section]).albums allObjects];
     cell.textLabel.text = ((Album *)[allAlbums objectAtIndex:indexPath.row]).name;
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"(%d)", [((Album *)[allAlbums objectAtIndex:indexPath.row]).hasSong count]];
     
     return cell;
 }
@@ -118,13 +129,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    if (self.delegateShowAlbum != nil) {
+        allAlbums = [((Musician *)[allMusicians objectAtIndex:indexPath.section]).albums allObjects];
+        [self.delegateShowAlbum didSelectAlbum:[allAlbums objectAtIndex:indexPath.row]];
+    }
 }
 
 - (void)viewDidUnload {
