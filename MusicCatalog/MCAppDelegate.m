@@ -7,8 +7,10 @@
 //
 
 #import "MCAppDelegate.h"
-#import "MCDetailController.h"
-#import "MCMasterController.h"
+#import "MCDetailControllerTable.h"
+#import "MCMasterControllerTable.h"
+#import "MCDetailControllerCover.h"
+#import "MCMasterControllerCover.h"
 
 @implementation MCAppDelegate
 
@@ -17,15 +19,48 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
-    UISplitViewController *splitViewController = (UISplitViewController *) self.window.rootViewController;
-    UINavigationController *navigationControllerDetail = [splitViewController.viewControllers lastObject];
-    splitViewController.delegate = (MCDetailController *)navigationControllerDetail.topViewController;
-    
-    UINavigationController *navigationControllerMaster = [splitViewController.viewControllers objectAtIndex:0];
-    ((MCMasterController *)navigationControllerMaster.topViewController).delegateShowAlbum = (MCDetailController *)navigationControllerDetail.topViewController;
-    
+{
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    //load settings
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *apearanceSetting = [defaults objectForKey:@"appearance"];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIViewController *viewController;
+    
+    //table apearance
+    if ([apearanceSetting isEqual:@"1"])
+    {
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"splitTable"];
+        self.window.rootViewController = viewController;
+        [self.window makeKeyAndVisible];
+        
+        UISplitViewController *splitViewController = (UISplitViewController *) self.window.rootViewController;
+        UINavigationController *navigationControllerDetail = [splitViewController.viewControllers lastObject];
+        splitViewController.delegate = (MCDetailControllerTable *)navigationControllerDetail.topViewController;
+        
+        UINavigationController *navigationControllerMaster = [splitViewController.viewControllers objectAtIndex:0];
+        ((MCMasterControllerTable *)navigationControllerMaster.topViewController).delegateShowAlbum = (MCDetailControllerTable *)navigationControllerDetail.topViewController;
+    }
+    //cover apearance
+    else
+    {
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"splitCover"];
+        self.window.rootViewController = viewController;
+        [self.window makeKeyAndVisible];
+        
+        UISplitViewController *splitViewController = (UISplitViewController *) self.window.rootViewController;
+        UINavigationController *navigationControllerDetail = [splitViewController.viewControllers lastObject];
+        splitViewController.delegate = (MCDetailControllerCover *)navigationControllerDetail.topViewController;
+        
+        UINavigationController *navigationControllerMaster = [splitViewController.viewControllers objectAtIndex:0];
+        ((MCMasterControllerCover *)navigationControllerMaster.topViewController).delegateShowAlbums = (MCDetailControllerCover *)navigationControllerDetail.topViewController;
+    }
+
 }
 
 #pragma mark - Core Data stack
@@ -109,7 +144,7 @@
     return [self saveContext];
 }
 
--(BOOL)createAlbumWithName:(NSString *)paramName year:(NSNumber *)paramYear
+-(BOOL)createAlbumWithName:(NSString *)paramName year:(NSNumber *)paramYear imageURL:(NSString *)imageURL
 {
     if ([paramName length] == 0)
     {
@@ -126,7 +161,7 @@
     
     newAlbum.name = paramName;
     newAlbum.year = paramYear;
-    newAlbum.coverURL = @"nana";
+    newAlbum.coverURL = imageURL;
     
     return [self saveContext];
 }
@@ -152,10 +187,11 @@
     return [self saveContext];
 }
 
--(BOOL)addAlbumWithName:(NSString *)albumName ForMusicianWithName:(NSString *)musicianName
+-(BOOL)addAlbumWithName:(NSString *)albumName forMusicianWithName:(NSString *)musicianName
 {    
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Musician"];
     request.predicate = [NSPredicate predicateWithFormat:@"name = %@", musicianName];
+    
     
     NSError *error;
     Musician *musician = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
@@ -165,11 +201,11 @@
         error = nil;
         return NO;
     }
-    NSMutableSet *albums = [musician mutableSetValueForKey:@"albums"];
     
     request = [[NSFetchRequest alloc] initWithEntityName:@"Album"];
     request.predicate = [NSPredicate predicateWithFormat:@"name = %@", albumName];
     
+    error = nil;
     Album *album = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
     if (error != nil)
     {
@@ -178,37 +214,17 @@
         return NO;
     }
     
-    [albums addObject:album];
+    [musician addAlbumsObject:album];
     
     return [self saveContext];
 }
 
--(BOOL)removeAlbum:(Album *)album ForMusician:(Musician *)musician
-{
-    NSMutableSet *albums = [musician mutableSetValueForKey:@"albums"];
-    [albums removeObject:album];
-    
-    return [self saveContext];
-}
-
--(BOOL)addSongWithName:(NSString *)songName ForAlbumWithName:(NSString *)albumName
-{
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Album"];
-    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", albumName];
-    
-    NSError *error;
-    Album *album = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
-    if (error != nil)
-    {
-        NSLog(@"Failed to get Album!");
-        error = nil;
-        return NO;
-    }
-    NSMutableSet *songs = [album mutableSetValueForKey:@"hasSong"];
-    
-    request = [[NSFetchRequest alloc] initWithEntityName:@"Song"];
+-(BOOL)addSongWithName:(NSString *)songName ForAlbum:(Album *)album
+{    
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Song"];
     request.predicate = [NSPredicate predicateWithFormat:@"name = %@", songName];
     
+    NSError *error= nil;
     Song *song = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
     if (error != nil)
     {
@@ -217,8 +233,26 @@
         return NO;
     }
     
-    [songs addObject:song];
+    [album addSongsObject:song];
     
+    return [self saveContext];
+}
+
+-(BOOL)removeMusician:(Musician *)musician
+{
+    [self.managedObjectContext deleteObject:musician];
+    return [self saveContext];
+}
+
+-(BOOL)removeAlbum:(Album *)album ForMusician:(Musician *)musician
+{
+    [musician removeAlbumsObject:album];
+    return [self saveContext];
+}
+
+-(BOOL)removeSong:(Song *)song ForAlbum:(Album *)album
+{
+    [album removeSongsObject:song];
     return [self saveContext];
 }
 
@@ -238,19 +272,50 @@
     return allMusicians;
 }
 
--(NSArray *)fetchAllSongsForAlbum:(NSString *)albumName
+-(BOOL)musicianNameIsFree:(NSString *)musicianName
 {
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Album"];
-    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", albumName];
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Musician"];
+    NSPredicate *nameComparison = [NSPredicate predicateWithFormat:@"name = %@", musicianName];
+    request.predicate = nameComparison;
     
     NSError *error;
-    Album *album = [[[self managedObjectContext] executeFetchRequest:request error:&error] lastObject];
-    if (error)
-    {
-        NSLog(@" %@ ", [error localizedDescription]);
-        return nil;
-    }
-    return [album.hasSong allObjects];
+    NSArray *array = [[self managedObjectContext] executeFetchRequest:request error:&error];
+    if ([array count] > 0)
+        return NO;
+    else
+        return YES;
+}
+
+-(BOOL)albumNameIsFree:(NSString *)albumName owner:(Musician *)musician
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Album"];
+    NSPredicate *nameComparison = [NSPredicate predicateWithFormat:@"name = %@", albumName];
+    NSPredicate *ownerComparrison = [NSPredicate predicateWithFormat:@"author = %@", musician.name];
+    request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:nameComparison, ownerComparrison, nil]];
+    
+    NSError *error;
+    NSArray *array = [[self managedObjectContext] executeFetchRequest:request error:&error];
+    if ([array count] > 0)
+        return NO;
+    else
+        return YES;
+}
+
+-(BOOL)songNameIsFree:(NSString *)songName owner:(Album *)album
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Song"];
+    NSPredicate *nameComparison = [NSPredicate predicateWithFormat:@"name = %@", songName];
+    NSPredicate *ownerComparrison = [NSPredicate predicateWithFormat:@"sourceAlbum = %@", album];
+    //NSLog(album.author.name);
+    request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:nameComparison, ownerComparrison, nil]];
+    //request.predicate = ownerComparrison;
+    
+    NSError *error;
+    NSArray *array = [[self managedObjectContext] executeFetchRequest:request error:&error];
+    if ([array count] > 0)
+        return NO;
+    else
+        return YES;
 }
 
 #pragma mark - Application's Documents directory

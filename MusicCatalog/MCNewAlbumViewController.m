@@ -7,13 +7,17 @@
 //
 
 #import "MCNewAlbumViewController.h"
+#import "MCAppDelegate.h"
 
 @interface MCNewAlbumViewController ()
 {
-    bool keyboardIsShown;
+    BOOL keyboardIsShown;
     float originalScrollOffsetY;
+    NSString *imageName;
     Musician *tempMusician;
     Album *tempAlbum;
+    
+    UIPopoverController *popOverImagePick;
 }
 @end
 
@@ -30,12 +34,53 @@
     //backgoundTap
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap:)];
     [self.scrollview addGestureRecognizer:singleTap];
+    
+    //imageTap
+    self.coverImage.userInteractionEnabled = YES;
+    UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+    [self.coverImage addGestureRecognizer:imageTap];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
+
+#pragma mark - image picker
+- (IBAction)imageTapped:(id)sender {
+    UIImagePickerController *picker;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        popOverImagePick = [[UIPopoverController alloc] initWithContentViewController:picker];
+        [popOverImagePick presentPopoverFromRect:self.coverImage.bounds inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *pickedImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    
+    NSData *pngData = UIImagePNGRepresentation(pickedImage);
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+    imageName = [NSString stringWithFormat:@"%@.png", guid];
+    
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:imageName];
+    [pngData writeToFile:filePath atomically:YES];
+    
+    self.coverImage.image = [[UIImage alloc] initWithContentsOfFile:filePath];
+    
+    return;
+}
+
 
 #pragma mark - Keyboard and scrollview handle
 
@@ -133,20 +178,74 @@
 
 -(IBAction)savePressed:(id)sender
 {
-    //save musician if it is new
-    if (self.switchAuthor.on)
+    //check if musucian name is not empty
+    if (![self.textAuthor.text length] > 0)
     {
-        [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] createMusicianWithName:self.textAuthor.text];
+        UIAlertView *alertName = [[UIAlertView alloc] initWithTitle:@"Ошибка!" message:@"Автор обязателен!"delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertName show];
     }
-    //save album
-    [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] createAlbumWithName:self.textName.text year:[NSNumber numberWithInt:[self.textYear.text intValue]]];
-    [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] addAlbumWithName:self.textName.text ForMusicianWithName:self.textAuthor.text];
-    
-    if (self.delegateNewAlbum != nil) {
-        [self.delegateNewAlbum didCreatedNewAlbum:YES];
+    else
+    {
+        //save musician if it is new
+        if (self.switchAuthor.on)
+        {
+            //check if musician name is unique
+            if ([(MCAppDelegate *)[[UIApplication sharedApplication] delegate] musicianNameIsFree:self.textAuthor.text])
+            {
+                [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] createMusicianWithName:self.textAuthor.text];
+            }
+            else
+            {
+                UIAlertView *alertName = [[UIAlertView alloc] initWithTitle:@"Ошибка!" message:@"Такой автор уже существует!"delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alertName show];
+            }
+        }
+        //check that year is number or empty
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setAllowsFloats:NO];
+        NSNumber *resultYear = [numberFormatter numberFromString:self.textYear.text];
+        
+        if ([self.textYear.text length] > 0 && resultYear == nil)
+        {
+            UIAlertView *alertYear = [[UIAlertView alloc] initWithTitle:@"Ошибка!" message:@"Год не является числом!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertYear show];
+        }
+        else
+        {
+            //check that album name is unique && not empty
+            if (![self.textName.text length] > 0)
+            {
+                UIAlertView *alertName = [[UIAlertView alloc] initWithTitle:@"Ошибка!" message:@"Название обязательно!"delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alertName show];
+            }
+            else
+            {
+                //last check
+                BOOL temp = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] albumNameIsFree:self.textName.text owner:tempMusician];
+                if (temp)
+                {
+                    //save album
+                    [(MCAppDelegate *)[[UIApplication sharedApplication] delegate]
+                     createAlbumWithName:self.textName.text
+                     year:[NSNumber numberWithInt:[self.textYear.text intValue]]
+                     imageURL:imageName];
+                    [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] addAlbumWithName:self.textName.text forMusicianWithName:self.textAuthor.text];
+                    
+                    //notify delegate
+                    if (self.delegateNewAlbum != nil)
+                    {
+                        [self.delegateNewAlbum didCreatedNewAlbum:YES];
+                    }
+                    
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+                else
+                {
+                    UIAlertView *alertName = [[UIAlertView alloc] initWithTitle:@"Ошибка!" message:@"Такое название уже существует!"delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alertName show];
+                }
+            }
+        }
     }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 @end

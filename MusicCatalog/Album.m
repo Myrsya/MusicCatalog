@@ -2,7 +2,7 @@
 //  Album.m
 //  MusicCatalog
 //
-//  Created by Gavrina Maria on 19.09.13.
+//  Created by Gavrina Maria on 01.10.13.
 //  Copyright (c) 2013 Gavrina Maria. All rights reserved.
 //
 
@@ -17,6 +17,6 @@
 @dynamic name;
 @dynamic year;
 @dynamic author;
-@dynamic hasSong;
+@dynamic songs;
 
 @end

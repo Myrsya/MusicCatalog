@@ -6,18 +6,20 @@
 //  Copyright (c) 2013 Gavrina Maria. All rights reserved.
 //
 
-#import "MCDetailController.h"
-#import "MCViewSongController.h"
+#import "MCDetailControllerTable.h"
+#import "MCViewSongControllerTable.h"
+#import "MCAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface MCDetailController ()
+
+@interface MCDetailControllerTable ()
 {
     Album *selectedAlbum;
     NSArray *albumSongs;
 }
 @end
 
-@implementation MCDetailController
+@implementation MCDetailControllerTable
 {
     UIPopoverController *masterPopoverController;
 }
@@ -32,6 +34,12 @@
     self.tableSongs.layer.cornerRadius = 8.0;
     self.tableSongs.layer.borderColor = [UIColor grayColor].CGColor;
     self.tableSongs.layer.borderWidth = 1.5;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableSongs reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,7 +59,7 @@
     {
         NSIndexPath *indexPath = [self.tableSongs indexPathForSelectedRow];
         
-        MCViewSongController *viewSongController = [segue destinationViewController];
+        MCViewSongControllerTable *viewSongController = [segue destinationViewController];
         [viewSongController setSelectedSong:[albumSongs objectAtIndex:indexPath.row] ];
     }
 }
@@ -71,6 +79,8 @@
     contentRect.size.height+=20;
     self.scrollView.contentSize = contentRect.size;
     
+    [self.scrollView setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+    
 }
 
 #pragma mark - delegates
@@ -82,17 +92,33 @@
     [self.imageCover setHidden:NO];
     [self.addSongButton setEnabled:YES];
     
-    
+    //reload view content
     self.navigationItem.title = selectedAlbum.name;
-    albumSongs = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllSongsForAlbum:selectedAlbum.name];
+    albumSongs = [selectedAlbum.songs allObjects];
     
     [self.tableSongs reloadData];
+    
+    //load image
+    if ([selectedAlbum.coverURL length] > 0)
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsPath = [paths objectAtIndex:0];
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:selectedAlbum.coverURL];
+        self.imageCover.image = [UIImage imageWithContentsOfFile:filePath];
+    }
+    else
+    {
+        //no cover
+        self.imageCover.image = [UIImage imageNamed:@"cover_small.png"];
+    }
     [self configureView];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void) didCreatedNewSong:(BOOL)result
 {
-    albumSongs = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllSongsForAlbum:selectedAlbum.name];
+    albumSongs = [selectedAlbum.songs allObjects];
     [self.tableSongs reloadData];
     [self configureView];
 }
@@ -123,6 +149,29 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        Song *aSong =(Song *)[albumSongs objectAtIndex:indexPath.row];
+        
+        [tableView beginUpdates];
+        
+        [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] removeSong:aSong ForAlbum:selectedAlbum];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        albumSongs = [selectedAlbum.songs allObjects];
+        
+        [tableView endUpdates];
+        [self.tableSongs reloadData];
+        [self configureView];
+    }
+}
+
+#pragma mark - split view
 
 - (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
 {   

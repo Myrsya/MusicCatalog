@@ -15,7 +15,7 @@
 
 @end
 
-@interface MCNewAlbumViewController : UIViewController <AuthorPickerDelegate>
+@interface MCNewAlbumViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, AuthorPickerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *coverImage;
 @property (strong, nonatomic) IBOutlet UITextField *textName;

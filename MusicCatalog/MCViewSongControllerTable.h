@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Song.h"
 
-@interface MCViewSongController : UIViewController
+@interface MCViewSongControllerTable : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITextView *textLyrics;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) Song *selectedSong;
 

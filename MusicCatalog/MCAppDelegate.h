@@ -24,14 +24,20 @@
 
 -(BOOL)saveContext;
 -(BOOL)createMusicianWithName:(NSString *)paramName;
--(BOOL)createAlbumWithName:(NSString *)paramName year:(NSNumber *)paramYear;
+-(BOOL)createAlbumWithName:(NSString *)paramName year:(NSNumber *)paramYear imageURL:(NSString *)imageURL;
 -(BOOL)createSongWithName:(NSString *)paramName lyrics:(NSString *)paramText;
 
--(BOOL)addAlbumWithName:(NSString *)albumName ForMusicianWithName:(NSString *)musicianName;
+-(BOOL)addAlbumWithName:(NSString *)albumName forMusicianWithName:(NSString *)musicianName;
+-(BOOL)addSongWithName:(NSString *)songName ForAlbum:(Album *)album;
+
+-(BOOL)removeMusician:(Musician *)musician;
 -(BOOL)removeAlbum:(Album *)album ForMusician:(Musician *)musician;
--(BOOL)addSongWithName:(NSString *)songName ForAlbumWithName:(NSString *)albumName;
+-(BOOL)removeSong:(Song *)song ForAlbum:(Album *)album;
+
+-(BOOL)musicianNameIsFree:(NSString *)musicianName;
+-(BOOL)albumNameIsFree:(NSString *)albumName owner:(Musician *)musician;
+-(BOOL)songNameIsFree:(NSString *)songName owner:(Album *)album;
 
 -(NSArray *)fetchAllMusicians;
--(NSArray *)fetchAllSongsForAlbum:(NSString *)albumName;
 
 @end

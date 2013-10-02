@@ -2,7 +2,7 @@
 //  Album.h
 //  MusicCatalog
 //
-//  Created by Gavrina Maria on 19.09.13.
+//  Created by Gavrina Maria on 01.10.13.
 //  Copyright (c) 2013 Gavrina Maria. All rights reserved.
 //
 
@@ -17,15 +17,14 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * year;
 @property (nonatomic, retain) Musician *author;
-@property (nonatomic, retain) NSSet *hasSong;
-
+@property (nonatomic, retain) NSSet *songs;
 @end
 
 @interface Album (CoreDataGeneratedAccessors)
 
-- (void)addHasSongObject:(Song *)value;
-- (void)removeHasSongObject:(Song *)value;
-- (void)addHasSong:(NSSet *)values;
-- (void)removeHasSong:(NSSet *)values;
+- (void)addSongsObject:(Song *)value;
+- (void)removeSongsObject:(Song *)value;
+- (void)addSongs:(NSSet *)values;
+- (void)removeSongs:(NSSet *)values;
 
 @end

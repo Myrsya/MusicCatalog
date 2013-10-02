@@ -6,16 +6,17 @@
 //  Copyright (c) 2013 Gavrina Maria. All rights reserved.
 //
 
-#import "MCMasterController.h"
+#import "MCMasterControllerTable.h"
+#import "MCAppDelegate.h"
 
-@interface MCMasterController ()
+@interface MCMasterControllerTable ()
 {
     NSArray *allMusicians;
     NSArray *allAlbums;
 }
 @end
 
-@implementation MCMasterController
+@implementation MCMasterControllerTable
 
 - (void)viewDidLoad
 {
@@ -48,16 +49,7 @@
     }
 }
 
--(void) didCreatedNewSong:(BOOL)result
-{
-    if (result)
-    {
-        allMusicians = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllMusicians];
-        [self.masterTable reloadData];
-    }
-}
-
-#pragma mark - Table view data source
+#pragma mark - Table view
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -68,6 +60,7 @@
 {
     return [((Musician *)[allMusicians objectAtIndex:section]).albums count];
 }
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return ((Musician *)[allMusicians objectAtIndex:section]).name;
@@ -79,53 +72,51 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     allAlbums = [((Musician *)[allMusicians objectAtIndex:indexPath.section]).albums allObjects];
-    cell.textLabel.text = ((Album *)[allAlbums objectAtIndex:indexPath.row]).name;
+    Album *anAlbum = ((Album *)[allAlbums objectAtIndex:indexPath.row]);
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"(%d)", [((Album *)[allAlbums objectAtIndex:indexPath.row]).hasSong count]];
+    if (![anAlbum.year isEqualToNumber:[NSNumber numberWithInt:0]])
+    {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ / %@", anAlbum.name, anAlbum.year];
+    }
+    else
+    {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", anAlbum.name];
+    }
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"(%d)", [((Album *)[allAlbums objectAtIndex:indexPath.row]).songs count]];
     
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        Musician *aMusician = (Musician *)[allMusicians objectAtIndex:indexPath.section];
+        allAlbums = [aMusician.albums allObjects];
+        Album *anAlbum = ((Album *)[allAlbums objectAtIndex:indexPath.row]);
+        
+        [tableView beginUpdates];
+        //removeAlbum
+        [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] removeAlbum:anAlbum ForMusician:aMusician];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        //if Album was last - remove Musicians
+        if ([allAlbums count] == 1)
+        {
+            [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] removeMusician:aMusician];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        
+        allMusicians = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllMusicians];
+        [tableView endUpdates];
+        [tableView reloadData];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
