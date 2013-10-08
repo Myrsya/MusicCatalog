@@ -2,7 +2,7 @@
 //  Album.h
 //  MusicCatalog
 //
-//  Created by Gavrina Maria on 01.10.13.
+//  Created by Gavrina Maria on 30.09.13.
 //  Copyright (c) 2013 Gavrina Maria. All rights reserved.
 //
 

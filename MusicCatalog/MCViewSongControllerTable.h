@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Song.h"
+#import "MCMasterSongsControllerCover.h"
 
-@interface MCViewSongControllerTable : UIViewController
+@interface MCViewSongControllerTable : UIViewController <ShowSongTextDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *textLyrics;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) Song *selectedSong;
-
 @end

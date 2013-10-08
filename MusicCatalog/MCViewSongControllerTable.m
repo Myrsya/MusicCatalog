@@ -20,6 +20,22 @@
     self.navigationItem.title= self.selectedSong.name;
     self.textLyrics.text = self.selectedSong.lyrics;
     
+    [self configureView];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+- (void)viewDidUnload
+{
+    [self setScrollView:nil];
+    [super viewDidUnload];
+}
+
+- (void)configureView
+{
     //textview
     CGRect frame = self.textLyrics.frame;
     frame.size.height = self.textLyrics.contentSize.height;
@@ -34,13 +50,11 @@
     self.scrollView.contentSize = contentRect.size;
 }
 
-- (void)didReceiveMemoryWarning
+-(void) didSelectSong:(Song *) song
 {
-    [super didReceiveMemoryWarning];
+    self.selectedSong = song;
+    self.textLyrics.text = self.selectedSong.lyrics;
+    [self configureView];
 }
 
-- (void)viewDidUnload {
-    [self setScrollView:nil];
-    [super viewDidUnload];
-}
 @end

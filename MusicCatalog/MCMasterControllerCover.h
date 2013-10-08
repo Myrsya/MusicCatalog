@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Musician.h"
+#import "MCNewAlbumViewController.h"
 
 @protocol ShowAlbumsDelegate <NSObject>
 
@@ -15,7 +16,7 @@
 
 @end
 
-@interface MCMasterControllerCover : UITableViewController
+@interface MCMasterControllerCover : UITableViewController <NewAlbum>
 
 @property (strong, nonatomic) IBOutlet UITableView *masterTable;
 @property (nonatomic,retain) id<ShowAlbumsDelegate> delegateShowAlbums;

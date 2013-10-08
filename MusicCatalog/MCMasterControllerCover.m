@@ -8,6 +8,7 @@
 
 #import "MCMasterControllerCover.h"
 #import "MCAppDelegate.h"
+#import "MCMasterSongsControllerCover.h"
 
 @interface MCMasterControllerCover ()
 {
@@ -23,15 +24,49 @@
     
     allMusicians = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllMusicians];
     [self.masterTable reloadData];
+    self.clearsSelectionOnViewWillAppear = NO;
 }
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];\
+    [super didReceiveMemoryWarning];
 }
+
+
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog([segue identifier]);
+    //set delegate from detail to new master (to fetch songs)
+    if ([[segue identifier] isEqualToString:@"masterMusiciansToSongs"])
+    {
+        MCMasterSongsControllerCover *masterSongsControllerCover = [segue destinationViewController];
+        MCDetailControllerCover *detailControllerCover = [((UINavigationController *)[self.splitViewController.viewControllers lastObject]).viewControllers objectAtIndex:0];
+        
+        detailControllerCover.delegateShowSongs = masterSongsControllerCover;
+    }
+    //new album delegate
+    if ([[segue identifier] isEqualToString:@"newAlbum"])
+    {
+        MCNewAlbumViewController *newAlbumViewController = [segue destinationViewController];
+        newAlbumViewController.delegateNewAlbum = self;
+    }
+}
+
+#pragma mark - delegates
+
+-(void) didCreatedNewAlbum:(BOOL)result
+{
+    if (result)
+    {
+        allMusicians = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllMusicians];
+        if (self.delegateShowAlbums != nil)
+        {
+            [self.delegateShowAlbums didSelectAuthor:(Musician *)[allMusicians objectAtIndex:self.masterTable.indexPathForSelectedRow.row]];
+        }
+        
+        NSIndexPath *ipath = [self.masterTable indexPathForSelectedRow];
+        [self.masterTable reloadData];
+        [self.masterTable selectRowAtIndexPath:ipath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
 }
 
 #pragma mark - Table view
@@ -63,43 +98,28 @@
         [self.delegateShowAlbums didSelectAuthor:(Musician *)[allMusicians objectAtIndex:indexPath.row]];
     }
 }
-/*
-// Override to support conditional editing of the table view.
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        Musician *aMusician = (Musician *)[allMusicians objectAtIndex:indexPath.row];
+        
+        [self.masterTable beginUpdates];
+        
+        //removeMusician and all albums
+        [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] removeMusician:aMusician];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        allMusicians = [(MCAppDelegate *)[[UIApplication sharedApplication] delegate] fetchAllMusicians];
+        [self.masterTable endUpdates];
+        [tableView reloadData];
+    }
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 @end

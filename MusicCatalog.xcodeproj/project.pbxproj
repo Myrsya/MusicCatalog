@@ -16,16 +16,18 @@
 		B45A354A17E09E3B00ABA337 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45A354917E09E3B00ABA337 /* UIKit.framework */; };
 		B45A354C17E09E3B00ABA337 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45A354B17E09E3B00ABA337 /* Foundation.framework */; };
 		B45A354E17E09E3B00ABA337 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45A354D17E09E3B00ABA337 /* CoreGraphics.framework */; };
-		B45A355417E09E3B00ABA337 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B45A355217E09E3B00ABA337 /* InfoPlist.strings */; };
 		B45A355617E09E3B00ABA337 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B45A355517E09E3B00ABA337 /* main.m */; };
 		B45A355A17E09E3B00ABA337 /* MCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B45A355917E09E3B00ABA337 /* MCAppDelegate.m */; };
 		B45A355C17E09E3B00ABA337 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A355B17E09E3B00ABA337 /* Default.png */; };
 		B45A355E17E09E3B00ABA337 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A355D17E09E3B00ABA337 /* Default@2x.png */; };
 		B45A356017E09E3B00ABA337 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A355F17E09E3B00ABA337 /* Default-568h@2x.png */; };
-		B45A356317E09E3B00ABA337 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B45A356117E09E3B00ABA337 /* MainStoryboard.storyboard */; };
 		B45A356E17E0A2F400ABA337 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B45A356C17E0A2F400ABA337 /* Model.xcdatamodeld */; };
 		B45DD26317FC504A00A23E0B /* MCDetailControllerCover.m in Sources */ = {isa = PBXBuildFile; fileRef = B45DD26217FC504A00A23E0B /* MCDetailControllerCover.m */; };
 		B45DD26617FC5F4300A23E0B /* MCAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B45DD26517FC5F4300A23E0B /* MCAlbumCell.m */; };
+		B45DD29D17FC6FDB00A23E0B /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B45DD29C17FC6FDB00A23E0B /* MainStoryboard.storyboard */; };
+		B45DD29F17FC701100A23E0B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B45DD29E17FC701100A23E0B /* InfoPlist.strings */; };
+		B45DD2A117FC707800A23E0B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B45DD2A017FC707800A23E0B /* Settings.bundle */; };
+		B46255061803F5C700633EF1 /* MCMasterSongsControllerCover.m in Sources */ = {isa = PBXBuildFile; fileRef = B46255051803F5C700633EF1 /* MCMasterSongsControllerCover.m */; };
 		B483807317EB265100307CE8 /* MCMasterControllerTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807217EB265100307CE8 /* MCMasterControllerTable.m */; };
 		B483807617EB28CA00307CE8 /* MCDetailControllerTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B483807517EB28CA00307CE8 /* MCDetailControllerTable.m */; };
 		B48380B917EB3F5C00307CE8 /* MCNewAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */; };
@@ -33,7 +35,6 @@
 		B4977B9117F18FE200E35E29 /* AuthorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4977B9017F18FE200E35E29 /* AuthorPickerViewController.m */; };
 		B4A2FD8117F95417001869AF /* cover_big.png in Resources */ = {isa = PBXBuildFile; fileRef = B4A2FD7F17F95417001869AF /* cover_big.png */; };
 		B4A2FD8217F95417001869AF /* cover_small.png in Resources */ = {isa = PBXBuildFile; fileRef = B4A2FD8017F95417001869AF /* cover_small.png */; };
-		B4D90C8617FC42B700281D71 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4D90C8517FC42B600281D71 /* Settings.bundle */; };
 		B4D90C8A17FC4EDB00281D71 /* MCMasterControllerCover.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D90C8917FC4EDB00281D71 /* MCMasterControllerCover.m */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +55,6 @@
 		B45A354B17E09E3B00ABA337 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B45A354D17E09E3B00ABA337 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B45A355117E09E3B00ABA337 /* MusicCatalog-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicCatalog-Info.plist"; sourceTree = "<group>"; };
-		B45A355317E09E3B00ABA337 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B45A355517E09E3B00ABA337 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B45A355717E09E3B00ABA337 /* MusicCatalog-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicCatalog-Prefix.pch"; sourceTree = "<group>"; };
 		B45A355817E09E3B00ABA337 /* MCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAppDelegate.h; sourceTree = "<group>"; };
@@ -62,12 +62,16 @@
 		B45A355B17E09E3B00ABA337 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		B45A355D17E09E3B00ABA337 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B45A355F17E09E3B00ABA337 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		B45A356217E09E3B00ABA337 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		B45A356D17E0A2F400ABA337 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		B45DD26117FC504A00A23E0B /* MCDetailControllerCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCDetailControllerCover.h; path = ../../../MCDetailControllerCover.h; sourceTree = "<group>"; };
 		B45DD26217FC504A00A23E0B /* MCDetailControllerCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCDetailControllerCover.m; path = ../../../MCDetailControllerCover.m; sourceTree = "<group>"; };
 		B45DD26417FC5F4300A23E0B /* MCAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAlbumCell.h; sourceTree = "<group>"; };
 		B45DD26517FC5F4300A23E0B /* MCAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAlbumCell.m; sourceTree = "<group>"; };
+		B45DD29C17FC6FDB00A23E0B /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		B45DD29E17FC701100A23E0B /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		B45DD2A017FC707800A23E0B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		B46255041803F5C700633EF1 /* MCMasterSongsControllerCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCMasterSongsControllerCover.h; path = ../../../MCMasterSongsControllerCover.h; sourceTree = "<group>"; };
+		B46255051803F5C700633EF1 /* MCMasterSongsControllerCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCMasterSongsControllerCover.m; path = ../../../MCMasterSongsControllerCover.m; sourceTree = "<group>"; };
 		B483807117EB265100307CE8 /* MCMasterControllerTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMasterControllerTable.h; sourceTree = "<group>"; };
 		B483807217EB265100307CE8 /* MCMasterControllerTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMasterControllerTable.m; sourceTree = "<group>"; };
 		B483807417EB28CA00307CE8 /* MCDetailControllerTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDetailControllerTable.h; sourceTree = "<group>"; };
@@ -79,7 +83,6 @@
 		B4977B9017F18FE200E35E29 /* AuthorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthorPickerViewController.m; path = ../../../AuthorPickerViewController.m; sourceTree = "<group>"; };
 		B4A2FD7F17F95417001869AF /* cover_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cover_big.png; path = ../../../Downloads/cover_big.png; sourceTree = "<group>"; };
 		B4A2FD8017F95417001869AF /* cover_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cover_small.png; path = ../../../Downloads/cover_small.png; sourceTree = "<group>"; };
-		B4D90C8517FC42B600281D71 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		B4D90C8817FC4EDB00281D71 /* MCMasterControllerCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMasterControllerCover.h; sourceTree = "<group>"; };
 		B4D90C8917FC4EDB00281D71 /* MCMasterControllerCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMasterControllerCover.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,13 +139,15 @@
 				B4D90C8C17FC4EED00281D71 /* coverAppearance */,
 				B4D90C8717FC4C7200281D71 /* tableAppearance */,
 				B45A356C17E0A2F400ABA337 /* Model.xcdatamodeld */,
-				B45A356117E09E3B00ABA337 /* MainStoryboard.storyboard */,
+				B45DD29C17FC6FDB00A23E0B /* MainStoryboard.storyboard */,
 				B45A355817E09E3B00ABA337 /* MCAppDelegate.h */,
 				B45A355917E09E3B00ABA337 /* MCAppDelegate.m */,
 				B48380B717EB3F5B00307CE8 /* MCNewAlbumViewController.h */,
 				B48380B817EB3F5B00307CE8 /* MCNewAlbumViewController.m */,
 				B4425CBB17F307AE006B602C /* MCNewSongViewController.h */,
 				B4425CBC17F307AF006B602C /* MCNewSongViewController.m */,
+				B4425CBE17F3162F006B602C /* MCViewSongControllerTable.h */,
+				B4425CBF17F3162F006B602C /* MCViewSongControllerTable.m */,
 				B4977B8F17F18FE100E35E29 /* AuthorPickerViewController.h */,
 				B4977B9017F18FE200E35E29 /* AuthorPickerViewController.m */,
 				B45A355017E09E3B00ABA337 /* Supporting Files */,
@@ -153,11 +158,11 @@
 		B45A355017E09E3B00ABA337 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B4D90C8517FC42B600281D71 /* Settings.bundle */,
+				B45DD2A017FC707800A23E0B /* Settings.bundle */,
 				B4A2FD7F17F95417001869AF /* cover_big.png */,
 				B4A2FD8017F95417001869AF /* cover_small.png */,
+				B45DD29E17FC701100A23E0B /* InfoPlist.strings */,
 				B45A355117E09E3B00ABA337 /* MusicCatalog-Info.plist */,
-				B45A355217E09E3B00ABA337 /* InfoPlist.strings */,
 				B45A355517E09E3B00ABA337 /* main.m */,
 				B45A355717E09E3B00ABA337 /* MusicCatalog-Prefix.pch */,
 				B45A355B17E09E3B00ABA337 /* Default.png */,
@@ -170,8 +175,6 @@
 		B4D90C8717FC4C7200281D71 /* tableAppearance */ = {
 			isa = PBXGroup;
 			children = (
-				B4425CBE17F3162F006B602C /* MCViewSongControllerTable.h */,
-				B4425CBF17F3162F006B602C /* MCViewSongControllerTable.m */,
 				B483807417EB28CA00307CE8 /* MCDetailControllerTable.h */,
 				B483807517EB28CA00307CE8 /* MCDetailControllerTable.m */,
 				B483807117EB265100307CE8 /* MCMasterControllerTable.h */,
@@ -183,12 +186,14 @@
 		B4D90C8C17FC4EED00281D71 /* coverAppearance */ = {
 			isa = PBXGroup;
 			children = (
+				B4D90C8817FC4EDB00281D71 /* MCMasterControllerCover.h */,
+				B4D90C8917FC4EDB00281D71 /* MCMasterControllerCover.m */,
 				B45DD26117FC504A00A23E0B /* MCDetailControllerCover.h */,
 				B45DD26217FC504A00A23E0B /* MCDetailControllerCover.m */,
 				B45DD26417FC5F4300A23E0B /* MCAlbumCell.h */,
 				B45DD26517FC5F4300A23E0B /* MCAlbumCell.m */,
-				B4D90C8817FC4EDB00281D71 /* MCMasterControllerCover.h */,
-				B4D90C8917FC4EDB00281D71 /* MCMasterControllerCover.m */,
+				B46255041803F5C700633EF1 /* MCMasterSongsControllerCover.h */,
+				B46255051803F5C700633EF1 /* MCMasterSongsControllerCover.m */,
 			);
 			name = coverAppearance;
 			sourceTree = "<group>";
@@ -258,14 +263,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B45A355417E09E3B00ABA337 /* InfoPlist.strings in Resources */,
 				B45A355C17E09E3B00ABA337 /* Default.png in Resources */,
 				B45A355E17E09E3B00ABA337 /* Default@2x.png in Resources */,
 				B45A356017E09E3B00ABA337 /* Default-568h@2x.png in Resources */,
-				B45A356317E09E3B00ABA337 /* MainStoryboard.storyboard in Resources */,
 				B4A2FD8117F95417001869AF /* cover_big.png in Resources */,
 				B4A2FD8217F95417001869AF /* cover_small.png in Resources */,
-				B4D90C8617FC42B700281D71 /* Settings.bundle in Resources */,
+				B45DD29D17FC6FDB00A23E0B /* MainStoryboard.storyboard in Resources */,
+				B45DD29F17FC701100A23E0B /* InfoPlist.strings in Resources */,
+				B45DD2A117FC707800A23E0B /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,29 +296,11 @@
 				B4D90C8A17FC4EDB00281D71 /* MCMasterControllerCover.m in Sources */,
 				B45DD26317FC504A00A23E0B /* MCDetailControllerCover.m in Sources */,
 				B45DD26617FC5F4300A23E0B /* MCAlbumCell.m in Sources */,
+				B46255061803F5C700633EF1 /* MCMasterSongsControllerCover.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		B45A355217E09E3B00ABA337 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B45A355317E09E3B00ABA337 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		B45A356117E09E3B00ABA337 /* MainStoryboard.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B45A356217E09E3B00ABA337 /* en */,
-			);
-			name = MainStoryboard.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B45A356717E09E3B00ABA337 /* Debug */ = {

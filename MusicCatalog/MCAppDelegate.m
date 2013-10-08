@@ -306,9 +306,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Song"];
     NSPredicate *nameComparison = [NSPredicate predicateWithFormat:@"name = %@", songName];
     NSPredicate *ownerComparrison = [NSPredicate predicateWithFormat:@"sourceAlbum = %@", album];
-    //NSLog(album.author.name);
     request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:nameComparison, ownerComparrison, nil]];
-    //request.predicate = ownerComparrison;
     
     NSError *error;
     NSArray *array = [[self managedObjectContext] executeFetchRequest:request error:&error];
